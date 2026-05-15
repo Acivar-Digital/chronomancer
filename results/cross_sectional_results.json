@@ -7,7 +7,6 @@
     "健康": 0.0,
     "六亲": 0.0
   },
-  "spearman": 0.3179724749243173,
   "per_person": [
     {
       "person_id": "male_19540318_P025",
@@ -3729,7 +3728,6 @@
     }
   ],
   "arrow2_num_people": 90,
-  "arrow2_spearman": -0.13432952848643268,
   "action_top1_accuracy": 0.14444444444444443,
   "action_per_person": [
     {
@@ -8495,7 +8493,6 @@
     }
   ],
   "action_num_people": 90,
-  "action_spearman": -0.051325434998546526,
   "action_relationship_accuracy": 0.6,
   "action_filtered_top1_accuracy": 0.0
 }

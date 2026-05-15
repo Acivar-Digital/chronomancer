@@ -3,7 +3,7 @@
   "num_people_cross": 90,
   "num_people_temporal": 45,
   "top1_accuracy": 0.4888888888888889,
-  "spearman": 0.3179724749243173,
+
   "hit_rate": 0.7560321715817694,
   "mean_signal_lift": 63.838391843971635,
   "precision_at_k": {
