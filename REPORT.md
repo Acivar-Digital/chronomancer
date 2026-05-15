@@ -235,10 +235,11 @@ The engine computation costs **zero API calls**. The LLM layer is only invoked f
 
 ### Medium-Term
 
-4. **Event trigger research** — the next major research direction. Moving beyond "this year is career-focused" to "in month M, when annual pillar X clashes with Da Yun Y, here's the specific risk and how to prepare." Timely, nuanced advice that accounts for the full complexity of a person's chart in motion.
-5. **Classical RAG citations** — BaziRAG integration for narrative layer to cite specific classical passages
-6. **Multi-year cross-sectional analysis** — track how domain predictions shift across consecutive years for the same subject
-7. **Calibrated confidence scores** — surface the engine's uncertainty (e.g., "60% confidence this is a career-dominant year")
+4. **Multi-chart interaction research** — the engine already supports adding partner, family, and close contacts' charts. The next step: print couples' and family charts side by side, compute cross-chart pillar interactions, and study what combined signals predict. Not just "your year looks like this" but "your year looks like this *given who you're with*." When your spouse's 日柱 clashes with your 月柱, or a child's 年柱 generates your favorable element — those interactions shape real outcomes. This is where BaZi gets genuinely powerful and where pure-LLM systems have zero shot.
+5. **Event trigger research** — moving beyond "this year is career-focused" to "in month M, when annual pillar X clashes with Da Yun Y, here's the specific risk and how to prepare."
+6. **Classical RAG citations** — BaziRAG integration for narrative layer to cite specific classical passages
+7. **Multi-year cross-sectional analysis** — track how domain predictions shift across consecutive years for the same subject
+8. **Calibrated confidence scores** — surface the engine's uncertainty (e.g., "60% confidence this is a career-dominant year")
 
 ---
 

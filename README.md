@@ -56,6 +56,18 @@ This has implications beyond BaZi. Any domain with well-defined classical rules 
 
 ---
 
+## 👥 What's Next: Multi-Chart Interaction
+
+A single person's chart tells you about *them*. But life isn't lived in isolation.
+
+The engine already supports adding **partner, family, and close contacts' charts** — studying how their pillars interact with yours. When your spouse's 日柱 clashes with your 月柱, or when a child's 年柱 generates your favorable element, those interactions shape real outcomes.
+
+Our next research direction: **print couples' and family charts side by side, compute the cross-chart interactions, and study what the combined signals predict.** Not just "your year looks like this" but "your year looks like this *given who you're with*."
+
+This is where BaZi gets genuinely powerful — and where pure-LLM systems have zero shot. You can't prompt your way through pillar-to-pillar interaction math across four people's charts. You need the engine.
+
+---
+
 ## ⚠️ What We Got Wrong
 
 Honesty matters. Known limitations:
