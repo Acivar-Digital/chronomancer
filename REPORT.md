@@ -1,4 +1,4 @@
-# Chronomancer — Deterministic BaZi Engine with LLM Narrative Layer
+# 🧮 Chronomancer — Deterministic BaZi Engine with LLM Narrative Layer
 
 > **Repository:** [github.com/Acivar-Digital/chronomancer](https://github.com/Acivar-Digital/chronomancer)
 
@@ -13,7 +13,7 @@ Chronomancer is a Telegram bot powered by a deterministic BaZi engine. The engin
 
 ---
 
-## Attribution
+## 📖 Attribution
 
 This project builds on the **BaziQA benchmark** created by [Jiangxi Chen](https://github.com/ChenJiangxi) (陈江熙) and Qian Liu (刘茜).
 
@@ -25,7 +25,7 @@ The contest8 and celebrity50 validation datasets are adapted from the original B
 
 ---
 
-## The Dataset
+## 📊 The Dataset
 
 The validation data comes from two sources in the BaziQA benchmark:
 
@@ -51,7 +51,7 @@ The validation data comes from two sources in the BaziQA benchmark:
 
 ---
 
-## What This Study Is (and Isn't)
+## 🔍 What This Study Is (and Isn't)
 
 **This is not a replication of the BaziQA benchmark.** The original BaziQA paper asks: *"Can LLMs reason about BaZi when given structured prompts?"* — and shows that structured prompting helps.
 
@@ -63,23 +63,23 @@ This is a fundamentally different philosophy:
 - **BaziQA's approach:** LLM reasons about BaZi (with structured prompting as scaffolding)
 - **Our approach:** Engine computes BaZi, LLM narrates the output (with engine data as grounding)
 
-### Important Assumptions
+### ⚖️ Important Assumptions
 
 This study assumes that **determining the strength and pillar of a person is correct.** The engine's Day Master strength calculations, pillar derivations, and interaction rules have been audited against classical texts across 17+ minor versions. But BaZi is a deep discipline — edge cases exist, and no engine is perfect.
 
-### A Note for First-Time Readers
+### 📝 A Note for First-Time Readers
 
 If you're reading about BaZi for the first time: **get a sifu (師傅) to audit your birth chart.** Determining your chart — the correct pillars, the correct strength assessment, the correct pattern — is the foundation. Everything that follows depends on getting this right. The human-in-the-loop remains essential. An engine can compute, but a master can see what the engine misses.
 
 This doesn't replace the master-apprentice relationship. It augments it. The app handles computation and narrative generation; the human provides judgment, context, and the irreplaceable nuance of lived experience.
 
-### What Comes Next
+### 💡 What Comes Next
 
 The immediate next step is deeper research into **event triggers** — how to provide timely advice that accounts for the various nuances of a person's chart as time passes. Not just "this year is career-focused" but "in the 7th month of this year, when the annual pillar clashes with your Da Yun, watch for career disruption — here's how to prepare."
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
 ```
 Birth Data (gender, DOB, time, location)
@@ -126,11 +126,11 @@ Birth Data (gender, DOB, time, location)
 
 ---
 
-## Validation Results (90 Subjects)
+## 📈 Validation Results (90 Subjects)
 
 We benchmarked the deterministic engine against pure-LLM baselines from the original BaziQA paper, plus our own internal methods.
 
-### Domain Prediction (Top-1 Accuracy)
+### 🎯 Domain Prediction (Top-1 Accuracy)
 
 The task: given only birth data, predict the person's most affected life domain for a given year. Five domains: 感情 (relationships), 财富 (wealth), 事业 (career), 健康 (health), 六亲 (family). Random chance = 20%.
 
@@ -151,7 +151,7 @@ The task: given only birth data, predict the person's most affected life domain 
 
 The deterministic engine outperforms every LLM tested, including reasoning models with structured protocols. This isn't because the engine is "smarter" — it's because BaZi domain prediction is a rule-based computation, not a language reasoning task.
 
-### Per-Domain Breakdown
+### 📊 Per-Domain Breakdown
 
 | Domain | Engine Hit Rate | Notes |
 |--------|----------------|-------|
@@ -161,9 +161,9 @@ The deterministic engine outperforms every LLM tested, including reasoning model
 | 健康 (Health) | 0.0% | Not captured by current engine |
 | 六亲 (Family) | 0.0% | Arrow2 method is better for this |
 
-**Known bias:** The engine predicts 事业 (career) as the top domain for ~75% of all subjects, but ground truth has 事业 as the top domain for only ~27%. This is a known architectural bias — the domain scoring weights favor career-related signals. Fixing this is the next priority.
+**⚠️ Known bias:** The engine predicts 事业 (career) as the top domain for ~75% of all subjects, but ground truth has 事业 as the top domain for only ~27%. This is a known architectural bias — the domain scoring weights favor career-related signals. Fixing this is the next priority.
 
-### Relationship Detection
+### 💕 Relationship Detection
 
 Using the **Action Guidance v2** module (calibrated relationship scoring with spouse star detection):
 
@@ -171,7 +171,7 @@ Using the **Action Guidance v2** module (calibrated relationship scoring with sp
 - The threshold filters out the 0.05 baseline noise from spouse star appearing in nearly all charts
 - Earlier testing at > 0 threshold gave 96.7% — an artifact of the baseline signal, not real accuracy
 
-### Temporal Event Detection
+### 🕰️ Temporal Event Detection
 
 On the celebrity50 dataset (45 subjects with dated life events):
 
@@ -181,9 +181,9 @@ On the celebrity50 dataset (45 subjects with dated life events):
 
 ---
 
-## Why Deterministic + LLM > Pure LLM
+## 🧠 Why Deterministic + LLM > Pure LLM
 
-### 1. LLMs Can't Do Pillar Math
+### 1. 🔢 LLMs Can't Do Pillar Math
 
 BaZi computation requires deterministic lookups: sexagenary cycle (六十甲子), Five Element assignments, Nayin (纳音), hidden stems (藏干). These are lookup tables, not reasoning tasks.
 
@@ -193,11 +193,11 @@ BaZi computation requires deterministic lookups: sexagenary cycle (六十甲子)
 | Map stems to elements | Hope the LLM memorized the table | `bazi_data.py` lookup dicts |
 | Compute hidden stems | Ask the LLM to recall branch contents | Per-branch weight tables with seasonal adjustment |
 
-### 2. Reproducibility
+### 2. 🔄 Reproducibility
 
 Same birth data → same output. Always. LLMs have temperature, sampling variance, and model drift. If a user asks "why did my reading change?" with the engine, we can show the exact computation trace. With pure LLM, you can't.
 
-### 3. Audit Trail
+### 3. 📋 Audit Trail
 
 The engine has undergone **17+ minor version audits** against classical texts (《渊海子平》, 《三命通会》, 《滴天髓》, 《穷通宝鉴》). Each bug found was a specific formula deviation from classical rules — traceable, fixable, verifiable. You can't audit an LLM's "understanding" of BaZi.
 
@@ -208,13 +208,13 @@ The engine has undergone **17+ minor version audits** against classical texts (�
 
 Every fix is traceable to a specific classical rule.
 
-### 4. Cost
+### 4. 💰 Cost
 
 The engine computation costs **zero API calls**. The LLM layer is only invoked for narrative generation — a single call per reading. Pure-LLM approaches need multiple calls (pillar derivation, analysis, narrative) with higher token counts and higher hallucination risk.
 
 ---
 
-## Engineering Quality
+## 🛠️ Engineering Quality
 
 - **162 engine unit tests** — all passing
 - **34 profile logic tests** — all passing
@@ -225,7 +225,7 @@ The engine computation costs **zero API calls**. The LLM layer is only invoked f
 
 ---
 
-## What's Next
+## 🗺️ What's Next
 
 ### Near-Term
 
@@ -242,7 +242,7 @@ The engine computation costs **zero API calls**. The LLM layer is only invoked f
 
 ---
 
-## Reproducing Results
+## 🔬 Reproducing Results
 
 The validation results in this report are generated by a deterministic BaZi engine (V31) operating on the BaziQA benchmark datasets. The engine implementation is proprietary; the datasets are MIT-licensed from the original [BaziQA benchmark](https://github.com/ChenJiangxi/BaziQA).
 
@@ -250,13 +250,13 @@ To discuss access to the engine for research purposes, [open an issue](https://g
 
 ---
 
-## License
+## 📑 License
 
 The validation datasets (`data/`) and results (`results/`) in this repository are released under the MIT License, following the original [BaziQA benchmark](https://github.com/ChenJiangxi/BaziQA) license. The deterministic engine is proprietary.
 
 ---
 
-## References
+## 📚 References
 
 - Chen, J., & Liu, Q. (2026). *BaziQA-Benchmark: Evaluating Symbolic and Temporally Compositional Reasoning in Large Language Models*. arXiv:2602.12889.
 - Original benchmark repo: [github.com/ChenJiangxi/BaziQA](https://github.com/ChenJiangxi/BaziQA)

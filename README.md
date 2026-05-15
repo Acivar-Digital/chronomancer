@@ -1,8 +1,8 @@
-# Chronomancer — Public Validation Report
+# 🧮 Chronomancer — Public Validation Report
 
 This repository contains the validation report and results for **Chronomancer**, a deterministic BaZi engine with an LLM narrative layer.
 
-## What's Here
+## 📂 What's Here
 
 | File/Dir | Description |
 |----------|-------------|
@@ -10,7 +10,7 @@ This repository contains the validation report and results for **Chronomancer**,
 | `results/` | Validation output: `summary.json`, `cross_sectional_results.json`, `temporal_results.json` |
 | `data/` | BaziQA benchmark datasets (MIT licensed): `contest8/` (2021-2025) and `celebrity50/` |
 
-## Key Results
+## 📈 Key Results
 
 | Metric | Engine | Best LLM (DeepSeek-Chat-v3) |
 |--------|--------|-----------------------------|
@@ -20,7 +20,7 @@ This repository contains the validation report and results for **Chronomancer**,
 
 On 90 subjects (40 contest8 + 50 celebrity50), the deterministic engine outperforms every LLM tested in the original BaziQA paper.
 
-## The Engine
+## 🧮 The Engine
 
 The deterministic BaZi engine (V31) is **proprietary**. It computes:
 
@@ -33,7 +33,7 @@ The deterministic BaZi engine (V31) is **proprietary**. It computes:
 
 The engine is not open-sourced. The LLM narrative layer (Telegram bot, prompt engineering, BaziRAG integration) is also proprietary.
 
-## Datasets
+## 📊 Datasets
 
 The `data/` directory contains the original BaziQA benchmark datasets:
 
@@ -42,17 +42,17 @@ The `data/` directory contains the original BaziQA benchmark datasets:
 
 These are adapted from the [BaziQA benchmark](https://github.com/ChenJiangxi/BaziQA) by Jiangxi Chen (陈江熙) and Qian Liu, used under the MIT license.
 
-## Attribution
+## 📖 Attribution
 
 - **BaziQA Paper:** Chen, J., & Liu, Q. (2026). *BaziQA-Benchmark: Evaluating Symbolic and Temporally Compositional Reasoning in Large Language Models*. arXiv:2602.12889.
 - **Original repo:** [github.com/ChenJiangxi/BaziQA](https://github.com/ChenJiangxi/BaziQA)
 - **Applied in:** [AuraMate灵伴](https://auramate.net/)
 
-## License
+## 📑 License
 
 Datasets and results: MIT License (following original BaziQA benchmark license).
 Engine: Proprietary.
 
-## Contact
+## 📬 Contact
 
 To discuss research access to the engine, [open an issue](https://github.com/Acivar-Digital/chronomancer/issues).
