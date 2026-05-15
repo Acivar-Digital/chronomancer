@@ -1,57 +1,92 @@
-# 🧮 Chronomancer — Public Validation Report
+# 🧮 Chronomancer — Deterministic BaZi Engine with LLM Narrative Layer
 
-This repository contains the validation report and results for **Chronomancer**, a deterministic BaZi engine with an LLM narrative layer.
+**Most "AI fortune tellers" today pipe birth data into an LLM and hope for the best. We think that's backwards.**
 
-## 📂 What's Here
+BaZi (八字) is a deterministic system. Stems, branches, Five Elements, Ten Gods — these are lookup tables and formulas, not language reasoning tasks. LLMs hallucinate them. Even GPT-4 gets ~30% of pillar derivations wrong.
 
-| File/Dir | Description |
-|----------|-------------|
-| `REPORT.md` | Full report: architecture, validation results, comparison with LLM baselines |
-| `results/` | Validation output: `summary.json`, `cross_sectional_results.json`, `temporal_results.json` |
-| `data/` | BaziQA benchmark datasets (MIT licensed): `contest8/` (2021-2025) and `celebrity50/` |
+So we built it the other way around: **a deterministic engine computes everything, and the LLM only handles narrative.**
 
-## 📈 Key Results
+---
 
-| Metric | Engine | Best LLM (DeepSeek-Chat-v3) |
-|--------|--------|-----------------------------|
-| Top-1 Accuracy | **48.9%** | 38.0% |
-| Temporal Hit Rate | **75.6%** | — |
+## 📈 The Numbers
+
+We validated on 90 subjects from the [BaziQA benchmark](https://github.com/ChenJiangxi/BaziQA) (40 contest questions + 50 celebrities with verified life events):
+
+| Metric | Our Engine | Best LLM |
+|--------|-----------|----------|
+| Top-1 Domain Accuracy | **48.9%** | 38.0% |
+| Temporal Event Hit Rate | **75.6%** | — |
 | Relationship Detection | **60.0%** | — |
 
-On 90 subjects (40 contest8 + 50 celebrity50), the deterministic engine outperforms every LLM tested in the original BaziQA paper.
+The deterministic engine outperforms every LLM tested — not because it's "smarter," but because BaZi computation is a rule-based task. You don't need a language model to look up a stem-branch table.
 
-## 🧮 The Engine
+---
 
-The deterministic BaZi engine (V31) is **proprietary**. It computes:
+## 🧠 The Architecture
 
-- Four pillars (八字) from birth data
-- Day Master strength and pattern classification (格局)
-- Ten Gods (十神) and Shen Sha (神煞)
-- Da Yun (大运) and annual luck pillars
+```
+Birth Data → Deterministic Engine → Structured JSON → LLM → Natural Language Reading
+```
+
+**The engine handles everything deterministic:**
+- Four pillars (八字) from birth time
+- Day Master strength & pattern classification (格局)
+- Ten Gods (十神), Shen Sha (神煞), Da Yun (大运)
 - Domain scoring across 感情/财富/事业/健康/六亲
 - Event trigger detection
 
-The engine is not open-sourced. The LLM narrative layer (Telegram bot, prompt engineering, BaziRAG integration) is also proprietary.
+**The LLM handles what it's good at:**
+- Turning "事业 score 0.78, Zheng Guan +3" into fluent, personalized advice
+- Citing classical texts (《渊海子平》《三命通会》《滴天髓》)
+- Varying tone and framing per user
 
-## 📊 Datasets
+Separation of concerns. The calculator calculates. The writer writes.
 
-The `data/` directory contains the original BaziQA benchmark datasets:
+---
 
-- **contest8** (2021-2025): 40 subjects, 200 questions from the Global Fortune-teller Competition
-- **celebrity50**: 50 public figures with verified life-event timelines
+## 🔍 What We're Trying to Understand
 
-These are adapted from the [BaziQA benchmark](https://github.com/ChenJiangxi/BaziQA) by Jiangxi Chen (陈江熙) and Qian Liu, used under the MIT license.
+The original BaziQA paper asked: *"Can LLMs reason about BaZi with structured prompts?"*
+
+We ask a different question: **"Should the reasoning be done by the LLM at all?"**
+
+Our hypothesis: for rule-based classical systems like BaZi, deterministic computation is strictly superior to LLM inference for the structural layer. The LLM adds value only at the narrative layer — turning computed signals into human-readable guidance.
+
+This has implications beyond BaZi. Any domain with well-defined classical rules (astrology, traditional medicine, legal code) might benefit from this two-layer pattern: **compute first, narrate second.**
+
+---
+
+## ⚠️ What We Got Wrong
+
+Honesty matters. Known limitations:
+
+- **事业 bias**: The engine predicts career as the top domain for ~75% of subjects, but ground truth is only ~27%. The scoring weights need recalibration.
+- **感情 blind spot**: Relationship detection is the weakest domain at 2.5% hit rate.
+- **健康 and 六亲**: Not captured at all by the current engine. Zero hits.
+- **Small dataset**: 90 subjects. This is the only public BaZi QA benchmark, but it's not large.
+
+---
 
 ## 📖 Attribution
 
-- **BaziQA Paper:** Chen, J., & Liu, Q. (2026). *BaziQA-Benchmark: Evaluating Symbolic and Temporally Compositional Reasoning in Large Language Models*. arXiv:2602.12889.
-- **Original repo:** [github.com/ChenJiangxi/BaziQA](https://github.com/ChenJiangxi/BaziQA)
+This work builds on the [BaziQA benchmark](https://github.com/ChenJiangxi/BaziQA) by Jiangxi Chen (陈江熙) and Qian Liu.
+
+- **Paper:** [arXiv:2602.12889](https://arxiv.org/abs/2602.12889) (February 2026)
 - **Applied in:** [AuraMate灵伴](https://auramate.net/)
 
-## 📑 License
+---
 
-Datasets and results: MIT License (following original BaziQA benchmark license).
-Engine: Proprietary.
+## 📂 What's in This Repo
+
+| File/Dir | Description |
+|----------|-------------|
+| `REPORT.md` | [Full report](REPORT.md) — architecture, validation, methodology, limitations |
+| `results/` | Validation output: `summary.json`, `cross_sectional_results.json`, `temporal_results.json` |
+| `data/` | BaziQA benchmark datasets (MIT licensed): `contest8/` and `celebrity50/` |
+
+The deterministic engine (V31) is **proprietary** — 162 unit tests, 17+ audit iterations against classical texts. Not open-sourced.
+
+---
 
 ## 📬 Contact
 
